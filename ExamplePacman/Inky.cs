@@ -1,94 +1,69 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
 
 namespace Pacman
 {
-    public class Inky : Enemy
+    /// <summary>
+    /// Inky (cyan ghost) - Uses complex targeting based on Blinky's position.
+    /// </summary>
+    public class Inky : Ghost
     {
         public Inky(int tileX, int tileY, Tile[,] tileArray) : base(tileX, tileY, tileArray)
         {
             ScatterTargetTile = new Vector2(25, 29);
-            type = GhostType.Inky;
+            Type = GhostType.Inky;
 
-            rectsDown[0] = new Rectangle(1659, 291, 42, 42);
-            rectsDown[1] = new Rectangle(1707, 291, 42, 42);
+            RectsDown[0] = new Rectangle(1659, 291, 42, 42);
+            RectsDown[1] = new Rectangle(1707, 291, 42, 42);
 
-            rectsUp[0] = new Rectangle(1563, 291, 42, 42);
-            rectsUp[1] = new Rectangle(1611, 291, 42, 42);
+            RectsUp[0] = new Rectangle(1563, 291, 42, 42);
+            RectsUp[1] = new Rectangle(1611, 291, 42, 42);
 
-            rectsLeft[0] = new Rectangle(1467, 291, 42, 42);
-            rectsLeft[1] = new Rectangle(1515, 291, 42, 42);
+            RectsLeft[0] = new Rectangle(1467, 291, 42, 42);
+            RectsLeft[1] = new Rectangle(1515, 291, 42, 42);
 
-            rectsRight[0] = new Rectangle(1371, 291, 42, 42);
-            rectsRight[1] = new Rectangle(1419, 291, 42, 42);
+            RectsRight[0] = new Rectangle(1371, 291, 42, 42);
+            RectsRight[1] = new Rectangle(1419, 291, 42, 42);
         }
 
-        public override Vector2 getChaseTargetPosition(Vector2 playerTilePos, Dir playerDir, Tile[,] tileArray, Vector2 blinkyPos)
+        public override Vector2 GetChaseTarget(Vector2 playerTilePos, Direction playerDirection, Tile[,] tileArray, Vector2 blinkyPos)
         {
-            Dir PlayerDir = playerDir;
-            Vector2 PacmanPos = playerTilePos;
-            Vector2 BlinkyPos = blinkyPos;
-
-            if (PlayerDir == Dir.None)
+            // Remember last direction if player is not moving
+            if (playerDirection == Direction.None)
             {
-                PlayerDir = playerLastDir;
-            }
-
-            Vector2 finalTarget = new Vector2(0,0);
-
-            switch (PlayerDir)
-            {
-                case Dir.Down:
-                    finalTarget.Y += 2;
-                    playerLastDir = Dir.Down;
-                    break;
-                case Dir.Up:
-                    finalTarget.Y -= 2;
-                    playerLastDir = Dir.Up;
-                    break;
-                case Dir.Left:
-                    finalTarget.X -= 2;
-                    playerLastDir = Dir.Left;
-                    break;
-                case Dir.Right:
-                    finalTarget.X += 2;
-                    playerLastDir = Dir.Right;
-                    break;
-            }
-
-
-            if (PacmanPos.X < BlinkyPos.X)
-            {
-                finalTarget.X = BlinkyPos.X - PacmanPos.X;
+                playerDirection = playerLastDirection;
             }
             else
             {
-                finalTarget.X = PacmanPos.X - BlinkyPos.X;
+                playerLastDirection = playerDirection;
             }
 
-            if (PacmanPos.Y < BlinkyPos.Y)
+            // Calculate 2 tiles ahead of Pac-Man
+            Vector2 ahead = playerDirection switch
             {
-                finalTarget.Y = BlinkyPos.Y - PacmanPos.Y;
-            }
-            else
-            {
-                finalTarget.Y = PacmanPos.Y - BlinkyPos.Y;
-            }
+                Direction.Down => new Vector2(0, 2),
+                Direction.Up => new Vector2(0, -2),
+                Direction.Left => new Vector2(-2, 0),
+                Direction.Right => new Vector2(2, 0),
+                _ => Vector2.Zero
+            };
 
-            finalTarget *= 2;
+            // Calculate vector from Blinky to ahead position
+            Vector2 distance = new Vector2(
+                Math.Abs(playerTilePos.X - blinkyPos.X),
+                Math.Abs(playerTilePos.Y - blinkyPos.Y)
+            );
 
-            finalTarget.X += currentTile.X;
-            finalTarget.Y += currentTile.Y;
+            // Double the vector and add to Inky's position
+            Vector2 finalTarget = CurrentTile + (distance * 2) + ahead;
 
-            if (finalTarget.X < 0 || finalTarget.Y < 0 || finalTarget.X > Controller.numberOfTilesX - 1 || finalTarget.Y > Controller.numberOfTilesY - 1)
+            // Validate bounds
+            if (finalTarget.X < 0 || finalTarget.Y < 0 ||
+                finalTarget.X > Maze.NumberOfTilesX - 1 || finalTarget.Y > Maze.NumberOfTilesY - 1)
             {
                 return playerTilePos;
             }
+
+            // Check if target is a wall
             if (tileArray[(int)finalTarget.X, (int)finalTarget.Y].tileType == Tile.TileType.Wall)
             {
                 return playerTilePos;
