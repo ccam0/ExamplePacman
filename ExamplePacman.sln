@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePacman", "ExamplePacman\ExamplePacman.csproj", "{A8C281C8-07DC-4BD9-AAEC-62F0F7F70EDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGameLibrary", "MonoGameLibrary\MonoGameLibrary.csproj", "{D2D8A141-A509-46A3-ACB5-1250372F982A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,11 @@ Global
 		{A8C281C8-07DC-4BD9-AAEC-62F0F7F70EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8C281C8-07DC-4BD9-AAEC-62F0F7F70EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8C281C8-07DC-4BD9-AAEC-62F0F7F70EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D8A141-A509-46A3-ACB5-1250372F982A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D8A141-A509-46A3-ACB5-1250372F982A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D8A141-A509-46A3-ACB5-1250372F982A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D8A141-A509-46A3-ACB5-1250372F982A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

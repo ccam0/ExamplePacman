@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas>
+    <Texture>images/atlas</Texture>
+    <Regions>
+        <Region name="mazeFull" x="0" y="0" width="672" height="744" />
+        <Region name="mazeEmpty" x="683" y="0" width="672" height="744" />
+        
+        <Region name="pacmanLeft1" x="1421" y="50" width="28" height="40" />
+        <Region name="pacmanLeft2" x="1382" y="50" width="38" height="40" />
+        <Region name="pacmanRight1" x="1418" y="2" width="37" height="40" />
+        <Region name="pacmanRight2" x="1370" y="2" width="28" height="40" />
+        <Region name="pacmanUp1" x="1418" y="101" width="40" height="37" />
+        <Region name="pacmanUp2" x="1370" y="110" width="40" height="28" />
+        <Region name="pacmanDown1" x="1418" y="146" width="" height="" />
+        <Region name="pacmanDown2" x="1370" y="146" width="" height="" />
+    </Regions>
+    <Animations>
+        <Animation name="PacManAnimRight" delay="200">
+            <Frame region="pacmanRight1" />
+            <Frame region="pacmanRight2" />
+        </Animation>
+        <Animation name="PacManAnimLeft" delay="200">
+            <Frame region="pacmanLeft1" />
+            <Frame region="pacmanLeft2" />
+        </Animation>
+        <Animation name="PacManAnimUp" delay="200">
+            <Frame region="pacmanUp1" />
+            <Frame region="pacmanUp2" />
+        </Animation>
+        <Animation name="PacManAnimDown" delay="200">
+            <Frame region="pacmanDown1" />
+            <Frame region="pacmanDown2" />
+        </Animation>
+        
+    </Animations>
+</TextureAtlas>
