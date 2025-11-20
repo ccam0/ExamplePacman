@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplePacman", "ExamplePacman\ExamplePacman.csproj", "{A8C281C8-07DC-4BD9-AAEC-62F0F7F70EDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman", "Pacman\Pacman.csproj", "{A8C281C8-07DC-4BD9-AAEC-62F0F7F70EDF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGameLibrary", "MonoGameLibrary\MonoGameLibrary.csproj", "{D2D8A141-A509-46A3-ACB5-1250372F982A}"
 EndProject
